@@ -907,10 +907,15 @@ function drawTable() {
 	ctx.fillText("BlackJack", 51, 154);
 	ctx.fillStyle="#000";
 	ctx.fillText("BlackJack", 50, 155);
+
+	ctx.font = "normal 12px Palatino Linotype";
+	ctx.fillText("By GentleHat.com", 50, 182);
+
 	
 	ctx.restore();
 
 	ctx.drawImage(logo,650,25,125,175);
+
 }//ui.js
 
 function UI() {
