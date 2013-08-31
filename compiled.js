@@ -902,14 +902,14 @@ function drawTable() {
 
 	ctx.save();
 	ctx.rotate(DegToRad(-30));
-	ctx.font = "bold 36px Palatino Linotype";
+	ctx.font = "bold 30px Palatino Linotype";
 	ctx.fillStyle="#333";
-	ctx.fillText("BlackJack", 51, 154);
+	ctx.fillText("Canvas BlackJack", 61, 124);
 	ctx.fillStyle="#000";
-	ctx.fillText("BlackJack", 50, 155);
+	ctx.fillText("Canvas BlackJack", 60, 125);
 
 	ctx.font = "normal 12px Palatino Linotype";
-	ctx.fillText("By GentleHat.com", 50, 182);
+	ctx.fillText("By Lucas Penney", 60, 152);
 
 	
 	ctx.restore();
