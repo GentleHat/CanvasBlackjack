@@ -618,17 +618,21 @@ $(window).load(function() {
 });
 
 var keys = [];
+
 function Mouse() {
 	this.x = 0;
 	this.y = 0;
 }
 var mouse = new Mouse();
 //Disable browsers usual function of scrolling with up/down arrow keys
-document.onkeydown=function(){return event.keyCode!=38 && event.keyCode!=40 && event.keyCode!=32}  
+document.onkeydown = function(event) {
+	return event.keyCode != 38 && event.keyCode != 40 && event.keyCode != 32
+};
 
 function handleKeyDown(evt) {
 	keys[evt.keyCode] = true;
 }
+
 function handleKeyUp(evt) {
 	keys[evt.keyCode] = false;
 }
@@ -640,36 +644,29 @@ function handleInteractions() {
 
 
 //Mouse movement
-$('#canvas').mousemove(function(e){
-    mouse.x = e.pageX - this.offsetLeft,
-    mouse.y = e.pageY - this.offsetTop
+$('#canvas').mousemove(function(e) {
+	mouse.x = e.pageX - this.offsetLeft,
+	mouse.y = e.pageY - this.offsetTop
 });
 
 //Mouse clicks hook
-$("#canvas").click(function(e){
-   var parentOffset = $(this).offset(); 
-   //or $(this).offset(); if you really just want the current element's offset
-   var relX = e.pageX - parentOffset.left;
-   var relY = e.pageY - parentOffset.top;
+$("#canvas").click(function(e) {
+	var parentOffset = $(this).offset();
+	//or $(this).offset(); if you really just want the current element's offset
+	var relX = e.pageX - parentOffset.left;
+	var relY = e.pageY - parentOffset.top;
 
-   	if (game.gameover) {
+	if (game.gameover) {
 		game = new Game();
 		return;
 	}
 
-   for (var i = 0; i < buttons.length; i++) {
-	    var button = buttons[i];
-	    button.tryClick(e.offsetX, e.offsetY);
+	for (var i = 0; i < buttons.length; i++) {
+		var button = buttons[i];
+		//button.tryClick(e.offsetX, e.offsetY);
+		button.tryClick(mouse.x, mouse.y);
 	}
-
-
-  
-});
-
-
-
-
-//player.js
+});//player.js
 
 function Player() {
 	this.money = 500;
@@ -869,52 +866,53 @@ logo.src = "images/blackjack.svg";
 
 function drawTable() {
 	ctx.fillStyle = "#000";
-	ctx.fillRect(0,0,800,600);
+	ctx.fillRect(0, 0, 800, 600);
 
 	//Draw table shadow
 	ctx.fillStyle = "#333";
 	ctx.beginPath();
-	ctx.arc(WIDTH/2, -320, 804, 0, Math.PI*2, true); 
+	ctx.arc(WIDTH / 2, -320, 804, 0, Math.PI * 2, true);
 	ctx.closePath();
 	ctx.fill();
 	//Draw table
 	ctx.fillStyle = "#191";
 	ctx.beginPath();
-	ctx.arc(WIDTH/2, -320, 800, 0, Math.PI*2, true); 
+	ctx.arc(WIDTH / 2, -320, 800, 0, Math.PI * 2, true);
 	ctx.closePath();
 	ctx.fill();
 
 
-	
-	
+
 	ctx.strokeStyle = "#CCC";
-	ctx.roundRect((WIDTH/2)-200, 160, 400, 100, 10);
+	ctx.roundRect((WIDTH / 2) - 200, 160, 400, 100, 10);
 	ctx.stroke();
 	ctx.strokeStyle = "#000";
 	ctx.fillStyle = "#000";
-	drawSpade(ctx, (WIDTH/2)-150,175, 50, 70);
-	drawDiamond(ctx, (WIDTH/2)-50,175, 50, 70);
+	drawSpade(ctx, (WIDTH / 2) - 150, 175, 50, 70);
+	drawDiamond(ctx, (WIDTH / 2) - 50, 175, 50, 70);
 	ctx.stroke();
-	drawClub(ctx, (WIDTH/2)+50,175, 50, 70);
-	drawHeart(ctx, (WIDTH/2)+150,175, 50, 70);
+	drawClub(ctx, (WIDTH / 2) + 50, 175, 50, 70);
+	drawHeart(ctx, (WIDTH / 2) + 150, 175, 50, 70);
 	ctx.stroke();
 
 
 	ctx.save();
 	ctx.rotate(DegToRad(-30));
 	ctx.font = "bold 30px Palatino Linotype";
-	ctx.fillStyle="#333";
+	ctx.fillStyle = "#333";
 	ctx.fillText("Canvas BlackJack", 61, 124);
-	ctx.fillStyle="#000";
+	ctx.fillStyle = "#000";
 	ctx.fillText("Canvas BlackJack", 60, 125);
 
 	ctx.font = "normal 12px Palatino Linotype";
 	ctx.fillText("By Lucas Penney", 60, 152);
 
-	
+
 	ctx.restore();
 
-	ctx.drawImage(logo,650,25,125,175);
+	var isFirefox = typeof InstallTrigger !== 'undefined';
+	if (!isFirefox)
+		ctx.drawImage(logo, 650, 25, 125, 175);
 
 }//ui.js
 
